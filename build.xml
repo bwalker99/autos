@@ -1,0 +1,62 @@
+<project name="autos" default="deploy" basedir=".">
+    <description>
+        Sample application distribution. 
+    </description>
+ 
+    <!-- set global properties for this build -->
+    <property environment="env" />
+    <property file="build.properties" />
+    <property name="app" value="autos"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build_dir}"/>
+    <mkdir dir="${dist_dir}"/>  	
+  </target>
+
+    <target name="compile" depends="init" description="Compile files... ">
+        <!-- Compile the java code from ${src_dir} into ${build_dir} -->
+        <!-- debug=true puts line numbers in error stack dumps. Inflates the code but is handy -->
+        <javac srcdir="${src_dir}" destdir="${build_dir}" debug="true" 
+            classpath="${tomcat_home}/lib/servlet-api.jar;." 
+            includes="ca/bob/autos/web/*,ca/bob/autos/data/*,ca/bob/autos/model/*,ca/bob/autos/cli/*" />
+    </target> 
+	
+	<!-- Build application specific resources. Typically deploy to a .war file -->	
+  <target name="dist" depends="compile" description="generate the distribution" >
+
+    <!-- Create war file for distribution -->
+    <war destfile="${dist_dir}/${app}.war" webxml="${resources_dir}/web.xml">
+		    <fileset dir="${resources_dir}" includes="*.jsp,*.jspf,*.html,*.css"/>
+    	<zipfileset dir="${resources_dir}/images" prefix="images"/>			
+	    <classes dir="${build_dir}" includes="**/*.class"/>  
+        <classes dir="${resources_dir}" includes="*.properties" />
+    	<lib dir="${lib_dir}"> <include name="*.jar"/> </lib>
+    	
+    </war> 	
+
+  </target>
+	
+   <target name="deploy" depends="dist" description="deploy class files to local Tomcat">
+  	
+	<!--   Deploy war file to local tomcat  -->     
+	<echo>Copy war file to ${tomcat_home}/webapps/</echo>
+	
+	<copy todir="${tomcat_home}/webapps/">
+		<fileset dir="${dist_dir}" includes="${app}.war"/>
+	</copy>
+
+  </target>
+
+  <target name="clean" description="clean up" >
+	    <!-- Delete the ${build} and ${dist} directory trees -->
+	    <delete dir="${build_dir}"/>
+	    <delete dir="${dist_dir}"/>
+  </target>
+	
+    <target name="clean-all" depends="clean">
+        <ant dir="${common_dir}" target="clean" inheritAll="false" />
+    </target>
+</project>

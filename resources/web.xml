@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ This web.xml is specifically for the Portal/Cookie implementation.
+ -->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   version="2.5">
+
+  <display-name>Sample Auto Servlet</display-name>
+  <description>
+     Displays a sampleenvironment with a sample servlet.
+  </description>
+
+
+ <servlet>
+    <servlet-name>AutoLister</servlet-name>
+    <servlet-class>ca.bob.autos.web.AutoLister</servlet-class>    
+  </servlet>
+
+ <servlet>
+    <servlet-name>AutoUpdate</servlet-name>
+    <servlet-class>ca.bob.autos.web.AutoUpdate</servlet-class>
+  </servlet>
+
+ <servlet>
+    <servlet-name>AutoLookup</servlet-name>
+    <servlet-class>ca.bob.autos.web.AutoLookup</servlet-class>
+  </servlet>
+
+ <servlet>
+    <servlet-name>AutoDelete</servlet-name>
+    <servlet-class>ca.bob.autos.web.AutoDelete</servlet-class>
+  </servlet>
+
+
+ <servlet-mapping>
+    <servlet-name>AutoDelete</servlet-name>
+    <url-pattern>/delete</url-pattern>
+  </servlet-mapping>
+
+
+ <servlet-mapping>
+    <servlet-name>AutoLookup</servlet-name>
+    <url-pattern>/lookup</url-pattern>
+  </servlet-mapping>
+
+
+ <servlet-mapping>
+    <servlet-name>AutoLister</servlet-name>
+    <url-pattern>/list</url-pattern>
+  </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>AutoUpdate</servlet-name>
+    <url-pattern>/update</url-pattern>
+  </servlet-mapping>
+
+</web-app>

@@ -1,0 +1,38 @@
+/* Style sheet for election pages */
+body {
+	color:#000000;
+	font-size:11px;
+	font-family:verdana,helvetica,arial,sans-serif;
+	padding: 10px 10px 10px 10px;
+}
+table, th, tr, td {
+	color:#000000;
+	font-size:11px;
+	font-family:verdana,helvetica,arial,sans-serif;
+}
+
+
+hr {
+	margin: 15px 0 5px 5px;
+	width:250px;
+	clear:both;
+} 
+
+a {
+	color:#0000FF;
+	font-family:verdana,helvetica,arial,sans-serif;
+	text-decoration:none;
+}
+
+p {
+	margin: 0 0 6px 0;
+}	
+
+a:hover {
+	color:#990000;
+	text-decoration:underline;
+}
+a:visited {
+	color:#660099;
+	text-decoration:none;
+}

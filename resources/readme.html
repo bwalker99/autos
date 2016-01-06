@@ -1,0 +1,66 @@
+<html>
+<head><title>Sample Auto Application</title>
+<body font="Verdana,serif">
+<h3>Installation - Expand zip file to work location.</h3>
+<h3>Setup Instructions</h3>
+<p> <b>Tomcat</b>: Install latest version of Tomcat and get it running. Add the following to $TOMCAT_HOME/conf/context.xml<br/>
+<pre>
+   &lt;Resource name="jdbc/Autos" auth="Container"
+             type="javax.sql.DataSource"
+             username="autouser"
+             password="autopass"
+             driverClassName="com.mysql.jdbc.Driver"
+             url="jdbc:mysql://localhost/autos"
+             maxActive="10" maxIdle="4"/&gt;
+</pre>
+</p>
+
+<p> <b>Ant</b>: Install latest version of Ant and get it running</p>
+
+<p> <b>MySQL</b>: Install latest version of MySQL and get it running. Run the auto-sample.sql script to create the 
+database, users, tables, and initial data. (Login to mysql as root user then run: mysql>source {path/to/autos/auto-sample.sql)</p>
+
+<h3>Running Instructions - WEB</h3>
+<a href="list"> Start by Listing all of the autos</a>
+
+<h3>Editing Instructions - Use eclipse or any editor.</h3>
+Controllers are defined in web.xml:
+<ul>
+<li>list - ca.bob.autos.web.AutoLister</li>
+<li>lookup - ca.bob.autos.web.AutoLookup</li>
+<li>update - ca.bob.autos.web.AutoUpdate</li>
+<li>delete - ca.bob.autos.web.AutoDelete</li>
+</ul>
+
+<h3>Build instructions. Use Eclipse to build, or run ant from command like from the autos folder:</h3>
+<p>Modify build.properties to suit your needs. This one is for Windows. May need to make changes for linux and mac. 
+Build process will compile all files, create a war file and copy the war file to the Tomcat directory as defined in 
+build.properties. War file is in the 'dist' folder for deployment elsewhere.  </p>
+<pre>
+C:\Data\workspace\autos>c:\apps\ant\bin\ant
+Buildfile: C:\Data\workspace\autos\build.xml
+
+init:
+
+compile:
+    [javac] C:\Data\workspace\autos\build.xml:24: warning: 'includeantruntime' was not set, defaulting to build.sysclass
+to false for repeatable builds
+    [javac] Compiling 1 source file to C:\Data\workspace\autos\build
+
+dist:
+      [war] Building war: C:\Data\workspace\autos\dist\autos.war
+
+deploy:
+     [echo] Copy war file to c:/Apps/tomcat7/webapps/
+     [copy] Copying 1 file to c:\Apps\tomcat7\webapps
+
+BUILD SUCCESSFUL
+Total time: 2 seconds
+</pre>
+<h3>Run from command line.</h3><p>
+ Open a command box and move to the autos work folder. Type 'run' on Windows or './run.sh' on unix. Examples:</p>
+ <pre>autos>run list
+autos>run update -1 Honda Civic Grey 1000000   (creates new record) 
+autos>run update 4 Honda Civic Red 1200000 (updates record with id=4)</pre>
+</body>
+</html>
